@@ -1,8 +1,10 @@
 # spring-boot-auth-examples
 
 1. [Introduction](#introduction)
+    1. [Installation](#installation)
+    2. [Contexte](#contexte)
 2. [Comparaison](#comparaison)
-3. [Détails](#détails)
+3. [Détails et requêtes](#détails)
     1. [Basic](#basic)
     2. [ApiKey](#apikey)
     3. [JWT](#jwt)
@@ -12,6 +14,9 @@
 
 ## Introduction
 
+### Installation
+
+### Contexte
 
 ## Comparaison
 
@@ -22,13 +27,13 @@
 |JWT|--|--|--|--|
 |OAuth2|--|--|--|--|
 
-## Détails
+## Détails et requêtes
 
 ### Basic
 
 ### ApiKey
 
-### JWT (simple sans refresh)
+### JWT
 
 ### Oauth2
 
