@@ -2,7 +2,12 @@
 
 1. [Introduction](#introduction)
 2. [Comparaison](#comparaison)
-3. [Documentation](#documentation)
+3. [Détails](#détails)
+    1. [Basic](#basic)
+    2. [ApiKey](#apikey)
+    3. [JWT](#jwt)
+    4. [Oauth2](#oauth2)   
+4. [Documentation](#documentation)
 
 
 ## Introduction
@@ -16,6 +21,16 @@
 |ApiKey|--|--|--|--|
 |JWT|--|--|--|--|
 |OAuth2|--|--|--|--|
+
+## Détails
+
+### Basic
+
+### ApiKey
+
+### JWT (simple sans refresh)
+
+### Oauth2
 
 ## Documentation
 
