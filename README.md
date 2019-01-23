@@ -45,5 +45,16 @@ https://docs.spring.io/autorepo/docs/spring-security/current/guides/html5/
 
 https://docs.spring.io/autorepo/docs/spring-security/current/reference/
 
+http://www.bubblecode.net/fr/2016/01/22/comprendre-oauth2/
+
+https://tools.ietf.org/html/rfc6749
+
+https://tools.ietf.org/html/rfc7617
+
+https://tools.ietf.org/html/rfc7519
+
+https://jwt.io/
+
+
 
 
