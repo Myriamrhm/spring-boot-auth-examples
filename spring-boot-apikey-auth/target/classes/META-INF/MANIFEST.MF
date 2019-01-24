@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: ztevoz
+Build-Jdk: 10.0.2
+Implementation-Title: spring-boot-apikey-auth
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: net.secudev.auth
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/spring-boot-apikey-auth
+Created-By: Maven Integration for Eclipse
+
