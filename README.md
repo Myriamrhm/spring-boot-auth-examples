@@ -8,7 +8,7 @@
     1. [Basic](#basic)
     2. [ApiKey](#apikey)
     3. [JWT](#jwt)
-    4. [Oauth2](#oauth2)   
+    4. [Keycloak](#keycloak)
 4. [Documentation](#documentation)
 
 
@@ -25,7 +25,7 @@
 |Basic|--|--|--|--|
 |ApiKey|--|--|--|--|
 |JWT|--|--|--|--|
-|OAuth2|--|--|--|--|
+|Keycloak|--|--|--|--|
 
 ## Détails et requêtes
 
@@ -35,7 +35,7 @@
 
 ### JWT
 
-### Oauth2
+### Keycloak
 
 ## Documentation
 
