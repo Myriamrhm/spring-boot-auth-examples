@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@PreAuthorize("hasRole('ROLE_regular')")
+@PreAuthorize("hasRole('ROLE_regular') or hasRole('ROLE_admin')")
 @RequestMapping("/regular/")
 public class RegularController {
 

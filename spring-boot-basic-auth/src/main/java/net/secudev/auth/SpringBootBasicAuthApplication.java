@@ -4,7 +4,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -15,7 +14,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
 @SpringBootApplication(exclude= {UserDetailsServiceAutoConfiguration.class})
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableSwagger2
 public class SpringBootBasicAuthApplication {
 
