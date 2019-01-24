@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,7 +34,7 @@ public class AnonymousController {
 
 	//Mettre en place un controller advice pour préciser l'ereur ds le cas ou le JSON est malformé
 	//et se retrouver un erreur 500 sans précisions
-	@GetMapping("apikey")
+	@PostMapping("apikey")
 	public ResponseEntity<?> getAPIKey(@RequestBody JSONCredential cred, HttpServletRequest request) throws Exception {
 
 		if (!utilisateurs.existsByLogin(cred.getLogin())) {
