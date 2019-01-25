@@ -8,7 +8,6 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-//@PreAuthorize("hasRole('ROLE_admin')")
 @Documented
 public @interface Tracable {	
 }

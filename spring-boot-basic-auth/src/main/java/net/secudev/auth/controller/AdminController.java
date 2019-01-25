@@ -12,11 +12,10 @@ import net.secudev.auth.annotation.Tracable;
 @PreAuthorize("hasRole('ROLE_admin')")
 @RequestMapping("/admin/")
 public class AdminController {
-
+	
 	@GetMapping("me")
 	@Tracable
 	public String me() {
 		return SecurityContextHolder.getContext().getAuthentication().getName();
 	}
-
 }

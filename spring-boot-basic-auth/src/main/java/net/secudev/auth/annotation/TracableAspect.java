@@ -16,10 +16,18 @@ public class TracableAspect {
 	@Around("@annotation(Tracable)")
 	public Object handle(ProceedingJoinPoint joinPoint) throws Throwable {
 
+		
+		///AMELIORATION :
+		//Tisser autour de la classe annotee pour injecter le code de log dans toutes
+		//les methodes
+		
+		
 		// Il s'agit d'intercepter ce que fait une méthode annotée à l'éxécution et
 		// logger
 
 		Object obj = joinPoint.getThis();// Capture de la chose interceptée ;)
+		
+		
 
 		// Ici je bosses avec les contextes de spring, mais on peut aussi avoir besoin
 		// d'utiliser la reflection pour connaitre la méthode interceptée et ses

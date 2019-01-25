@@ -16,6 +16,7 @@ import net.secudev.auth.model.utilisateur.IUtilisateurRepository;
 import net.secudev.auth.model.utilisateur.Utilisateur;
 
 @Component
+
 public class InitData implements CommandLineRunner{
 
 	@Autowired
@@ -35,7 +36,7 @@ public class InitData implements CommandLineRunner{
 		if(roles.count() == 0 && utilisateurs.count()==0){
 			
 			logger.trace("Data vides, création ...");
-			
+						
 			Role admin = new Role("admin");
 			Role regular = new Role("regular");
 			Role vip = new Role("vip");

@@ -36,7 +36,7 @@ public class Utilisateur extends AbstractEntity {
 	@Setter
 	private String hashMotDePasse;
 		
-	@ManyToMany(fetch=FetchType.EAGER)
+	@ManyToMany(fetch=FetchType.LAZY)
 	private Set<Role> roles = new HashSet<Role>();
 
 	@Email
