@@ -18,4 +18,12 @@ public class AdminController {
 	public String me() {
 		return SecurityContextHolder.getContext().getAuthentication().getName();
 	}
+	
+	@GetMapping("add")
+	@Tracable
+	public String add() {
+		return SecurityContextHolder.getContext().getAuthentication().getName();
+	}
+	
+	
 }

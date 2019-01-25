@@ -30,6 +30,4 @@ public class SpringBootBasicAuthApplication {
 	        .build()
 	        .apiInfo(new ApiInfoBuilder().version("1.0").title("API basic AUTH").description("Documentation API v1.0").build());
 	}
-
 }
-

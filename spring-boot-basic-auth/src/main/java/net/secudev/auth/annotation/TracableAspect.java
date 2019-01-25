@@ -15,8 +15,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 public class TracableAspect {
 	@Around("@annotation(Tracable)")
 	public Object handle(ProceedingJoinPoint joinPoint) throws Throwable {
-
-		
 		///AMELIORATION :
 		//Tisser autour de la classe annotee pour injecter le code de log dans toutes
 		//les methodes

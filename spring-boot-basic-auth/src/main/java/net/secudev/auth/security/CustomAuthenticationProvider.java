@@ -43,23 +43,21 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 			String msg = "Utilisateur non trouvé : "+username;
 			logger.trace(msg);
 			throw new UsernameNotFoundException(msg);
-
 		}
 
 		if (!passwordEncoder.matches((CharSequence) authentication.getCredentials(), user.getHashMotDePasse())) {
 			String msg = "Mauvais mot de passe pour "+username;
 			logger.trace(msg);
 			throw new BadCredentialsException(msg);
-		}
-
-		logger.trace("Authentification de : " + user.getLogin());
+		}		
 
 		List<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
 
 		for (Role role : user.getRoles()) {
-			roles.add(new SimpleGrantedAuthority("ROLE_" + role.getLibelle()));
-			logger.trace("Role : " + role.getLibelle());
+			roles.add(new SimpleGrantedAuthority("ROLE_" + role.getLibelle()));			
 		}
+		
+		logger.trace("Authentification OK : " + user.getLogin()+" "+roles.toString());
 
 		return new UsernamePasswordAuthenticationToken(user.getLogin(), user.getHashMotDePasse(), roles);
 	}

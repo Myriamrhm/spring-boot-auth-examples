@@ -4,8 +4,6 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import javax.transaction.Transactional;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,9 +18,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.context.WebApplicationContext;
-
-import net.secudev.auth.model.utilisateur.IUtilisateurRepository;
-import net.secudev.auth.model.utilisateur.Utilisateur;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -66,17 +61,5 @@ public class SpringBootBasicAuthApplicationTests {
 	public void basicAuthFailed() throws Exception {
 		this.mvc.perform(get("/admin/me").header(HttpHeaders.AUTHORIZATION,
 				"Basic " + Base64Utils.encodeToString("bob:password".getBytes()))).andExpect(status().isForbidden());
-	}
-	
-
-	@Autowired
-	IUtilisateurRepository users;
-	
-	@Test	
-	public void truc() {
-		
-		Utilisateur alice = users.findByLogin("alice");
-		System.out.println(alice.getRoles());
-	}
-
+	}	
 }

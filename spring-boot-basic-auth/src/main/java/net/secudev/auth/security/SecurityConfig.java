@@ -33,8 +33,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().anyRequest().authenticated().and()		
-		.httpBasic().and().cors().disable().csrf().disable()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		http.authorizeRequests().anyRequest().authenticated().and()
+		
+		.formLogin().disable()	
+		
+		.httpBasic().and()
+		
+		.cors().disable().csrf().disable()
+		
+		//Alternative ci dessous à @PreAuthorize("hasRole('ROLE_admin')") dans le controller admin		
+		//.antMatcher("/admin/**").authorizeRequests().anyRequest().hasRole("admin").and()
+		
+		//Permet d'intercepter les acces refusés et passer une classe perso AccessDenyHandler ou je log les evenements
+		.exceptionHandling().accessDeniedHandler(new AccessDenyHandler()).and()
+		
+		//desactive la gestion de session
+		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 }
