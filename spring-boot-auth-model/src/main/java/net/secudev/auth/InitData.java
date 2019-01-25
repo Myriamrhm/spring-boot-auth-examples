@@ -44,30 +44,26 @@ public class InitData implements CommandLineRunner{
 			logger.trace("Ajout des rôles regular, admin et vip ...");
 			roles.saveAll(Arrays.asList(regular, vip, admin));			
 			
-			Utilisateur root = new Utilisateur("root", encoder.encode("password"), "root@secudev.net");
+			Utilisateur root = new Utilisateur("root", encoder.encode("password"), "root@secudev.net",Arrays.asList(admin));
 			root.genererCodeValidation();
 			root.setDateDernierAcces(LocalDateTime.now().plusDays(2));
 			root.createApiKey();
-			root.setActif(true);
-			root.ajouterRole(admin);			
+			root.setActif(true);					
 			utilisateurs.save(root);				
 			
-			Utilisateur bob = new Utilisateur("bob", encoder.encode("password"), "bob@secudev.net");
+			Utilisateur bob = new Utilisateur("bob", encoder.encode("password"), "bob@secudev.net",Arrays.asList(regular));
 			bob.genererCodeValidation();
 			bob.setDateDernierAcces(LocalDateTime.now().plusDays(2));
 			bob.createApiKey();
 			bob.setActif(true);
-			bob.ajouterRole(regular);			
 			utilisateurs.save(bob);
 			
 			
-			Utilisateur alice = new Utilisateur("alice", encoder.encode("password"), "alice@secudev.net");
+			Utilisateur alice = new Utilisateur("alice", encoder.encode("password"), "alice@secudev.net",Arrays.asList(regular, vip));
 			alice.genererCodeValidation();
 			alice.setDateDernierAcces(LocalDateTime.now().plusDays(2));
 			alice.createApiKey();
 			alice.setActif(true);
-			alice.ajouterRole(vip);	
-			alice.ajouterRole(regular);	
 			utilisateurs.save(alice);
 			
 			logger.trace("Ajout des utilisateurs admin, bob et alice ...");

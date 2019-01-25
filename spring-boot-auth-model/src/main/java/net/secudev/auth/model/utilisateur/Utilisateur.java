@@ -3,6 +3,7 @@ package net.secudev.auth.model.utilisateur;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -35,8 +36,8 @@ public class Utilisateur extends AbstractEntity {
 	@Getter
 	@Setter
 	private String hashMotDePasse;
-		
-	@ManyToMany(fetch=FetchType.LAZY)
+
+	@ManyToMany(fetch = FetchType.LAZY)
 	private Set<Role> roles = new HashSet<Role>();
 
 	@Email
@@ -78,39 +79,45 @@ public class Utilisateur extends AbstractEntity {
 		this.setHashMotDePasse(hashMotDePasse);
 		this.setEmail(email);
 	}
-	
-	public void ajouterRole(Role role)
-	{
-		if(role != null) this.roles.add(role);
+
+	public Utilisateur(String login, String hashMotDePasse, String email, List<Role> roles) {
+		this(login, hashMotDePasse, email);
+		if (roles != null) {
+			for (Role role : roles) {				
+				this.ajouterRole(role);
+			}
+		}
 	}
-	
-	public void supprimerRole(Role role)
-	{
-		if(role != null) this.roles.remove(role);
+
+	public void ajouterRole(Role role) {
+		if (role != null)
+			this.roles.add(role);
 	}
-	
-	public Set<Role> getRoles()
-	{
+
+	public void supprimerRole(Role role) {
+		if (role != null)
+			this.roles.remove(role);
+	}
+
+	public Set<Role> getRoles() {
 		return Collections.unmodifiableSet(roles);
-		//return new ArrayList<Role>(roles);
+		// return new ArrayList<Role>(roles);
 	}
-	
 
 	public String genererCodeValidation() {
 		this.codeValidationInscription = UUID.randomUUID().toString();
 		return this.codeValidationInscription;
 	}
-	
+
 	public String createApiKey() {
 		this.apiKey = UUID.randomUUID().toString();
 		this.dateExpirationApiKey = LocalDateTime.now().plusDays(30);
 		return this.apiKey;
 	}
-		
-	public void revoquerAcces()
-	{
-		this.codeValidationInscription="";
-		this.apiKey="";
-		this.dateExpirationApiKey=LocalDateTime.now().minusMinutes(5);
+
+	public void revoquerAcces() {
+		this.codeValidationInscription = "";
+		this.apiKey = "";
+		this.dateExpirationApiKey = LocalDateTime.now().minusMinutes(5);
 	}
 }
