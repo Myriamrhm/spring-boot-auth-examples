@@ -6,7 +6,7 @@
 2. [Comparaison](#comparaison)
 3. [Détails et requêtes](#détails)
     1. [Basic](#basic)
-    2. [ApiKey](#apikey)
+    2. [Access Token](#accessToken)
     3. [JWT](#jwt)
     4. [Keycloak](#keycloak)
 4. [Documentation](#documentation)
@@ -23,7 +23,7 @@
 |Type d'authentification|Composants Spring à l'oeuvre|Avantages|Inconvénients|Remarques|
 |--|--|--|--|--|
 |Basic|--|--|--|--|
-|ApiKey|--|--|--|--|
+|Access Token|--|--|--|--|
 |JWT|--|--|--|--|
 |Keycloak|--|--|--|--|
 
@@ -31,7 +31,7 @@
 
 ### Basic
 
-### ApiKey
+### Access Token
 
 ### JWT
 
