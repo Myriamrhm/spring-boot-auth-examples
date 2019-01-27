@@ -12,24 +12,19 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@SpringBootApplication(exclude= {UserDetailsServiceAutoConfiguration.class})
+@SpringBootApplication(exclude = { UserDetailsServiceAutoConfiguration.class })
 @EnableSwagger2
 public class SpringBootApikeyAuthApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootApikeyAuthApplication.class, args);
 	}
-	
+
 	@Bean
 	public Docket swaggerEmployeeApi() {
-	    return new Docket(DocumentationType.SWAGGER_2)
-	        .select()
-	            .apis(RequestHandlerSelectors.basePackage("net.secudev.auth.controller"))
-	            .paths(PathSelectors.any())
-	        .build()
-	        .apiInfo(new ApiInfoBuilder().version("1.0").title("API basic AUTH").description("Documentation API v1.0").build());
+		return new Docket(DocumentationType.SWAGGER_2).select()
+				.apis(RequestHandlerSelectors.basePackage("net.secudev.auth.controller")).paths(PathSelectors.any())
+				.build().apiInfo(new ApiInfoBuilder().version("1.0").title("API basic AUTH")
+						.description("Documentation API v1.0").build());
 	}
-
-
 }
-

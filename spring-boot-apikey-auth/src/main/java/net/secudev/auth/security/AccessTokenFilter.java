@@ -25,7 +25,7 @@ import net.secudev.auth.model.utilisateur.Utilisateur;
 
 //Si on l'ajoute comme component il sera automatiquement utilisé
 @Component
-public class ApiKeyFilter extends OncePerRequestFilter {
+public class AccessTokenFilter extends OncePerRequestFilter {
 
 	@Autowired
 	IUtilisateurRepository utilisateurs;
@@ -40,20 +40,36 @@ public class ApiKeyFilter extends OncePerRequestFilter {
 		String header = request.getHeader("Authorization");
 
 		if (header == null || !header.startsWith("Bearer ")) {
+			logger.trace("Requete sans header Authorisation ou qui ne débute pas par Bearer");
 			filterChain.doFilter(request, response);
 			return;
 		}
 
 		String token = header.replace("Bearer ", "");
-		logger.info(request.getMethod());
-		logger.trace(token);
 
 		// 2 retrouver le user associé au token
-		Utilisateur user = utilisateurs.findByApiKey(token);
+		Utilisateur user = utilisateurs.findByAccessToken(token);
 
 		if (user != null) {
 
 			// 3 Verifier si le user n'est pas bloqué puis si le token n'a pas expiré
+			if (!user.isActif()) {
+
+				String msg = "Utilisateur désactivé : " + user.getLogin();
+				logger.trace(msg);
+				((HttpServletResponse) response).setStatus(HttpServletResponse.SC_FORBIDDEN);
+				((HttpServletResponse) response).getWriter().write(msg);
+				return;
+			}
+
+			if (user.getDateExpirationAccessToken().isBefore(LocalDateTime.now())) {
+
+				String msg = "Token expiré le " + user.getDateExpirationAccessToken() + " pour : " + user.getLogin();
+				logger.trace(msg);
+				((HttpServletResponse) response).setStatus(HttpServletResponse.SC_FORBIDDEN);
+				((HttpServletResponse) response).getWriter().write(msg);
+				return;
+			}
 
 			// 4 retrouver les roles de ce user
 			List<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();

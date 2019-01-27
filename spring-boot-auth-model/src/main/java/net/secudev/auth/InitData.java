@@ -1,6 +1,5 @@
 package net.secudev.auth;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import org.slf4j.Logger;
@@ -45,24 +44,21 @@ public class InitData implements CommandLineRunner{
 			roles.saveAll(Arrays.asList(regular, vip, admin));			
 			
 			Utilisateur root = new Utilisateur("root", encoder.encode("password"), "root@secudev.net",Arrays.asList(admin));
-			root.genererCodeValidation();
-			root.setDateDernierAcces(LocalDateTime.now().plusDays(2));
-			root.createApiKey();
+			root.genererCodeValidation(2);
+			root.createAccessToken(1);
 			root.setActif(true);					
 			utilisateurs.save(root);				
 			
 			Utilisateur bob = new Utilisateur("bob", encoder.encode("password"), "bob@secudev.net",Arrays.asList(regular));
-			bob.genererCodeValidation();
-			bob.setDateDernierAcces(LocalDateTime.now().plusDays(2));
-			bob.createApiKey();
+			bob.genererCodeValidation(2);
+			bob.createAccessToken(1);
 			bob.setActif(true);
 			utilisateurs.save(bob);
 			
 			
 			Utilisateur alice = new Utilisateur("alice", encoder.encode("password"), "alice@secudev.net",Arrays.asList(regular, vip));
-			alice.genererCodeValidation();
-			alice.setDateDernierAcces(LocalDateTime.now().plusDays(2));
-			alice.createApiKey();
+			alice.genererCodeValidation(2);			
+			alice.createAccessToken(1);
 			alice.setActif(true);
 			utilisateurs.save(alice);
 			

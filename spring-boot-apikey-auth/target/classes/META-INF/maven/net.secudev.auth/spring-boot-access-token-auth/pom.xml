@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>net.secudev.auth</groupId>
-	<artifactId>spring-boot-apikey-auth</artifactId>
+	<artifactId>spring-boot-access-token-auth</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring-boot-apikey-auth</name>
 	<description></description>

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +25,9 @@ import net.secudev.auth.model.utilisateur.Utilisateur;
 @RequestMapping("/ano/")
 public class AnonymousController {
 
+	@Value("${token.expiration}")
+	private int tokenExpiration;
+	
 	@Autowired
 	private IUtilisateurRepository utilisateurs;
 
@@ -34,8 +38,8 @@ public class AnonymousController {
 
 	//Mettre en place un controller advice pour préciser l'ereur ds le cas ou le JSON est malformé
 	//et se retrouver un erreur 500 sans précisions
-	@PostMapping("apikey")
-	public ResponseEntity<?> getAPIKey(@RequestBody JSONCredential cred, HttpServletRequest request) throws Exception {
+	@PostMapping("token")
+	public ResponseEntity<?> getAccessToken(@RequestBody JSONCredential cred, HttpServletRequest request) throws Exception {
 
 		if (!utilisateurs.existsByLogin(cred.getLogin())) {
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Bad user");
@@ -53,15 +57,14 @@ public class AnonymousController {
 
 		// 15 jours de validité pour ce token, devrions mettre cette valuer dans la
 		// config
-		user.createApiKey();
-		user.setDateExpirationApiKey(LocalDateTime.now().plusDays(15));
+		user.createAccessToken(tokenExpiration);		
 		user.setDateDernierAcces(LocalDateTime.now());
 		user.setDerniereIpConnue(request.getRemoteAddr());
 
 		utilisateurs.save(user);
-		logger.trace("TOKEN crée pour " + user.getLogin() + " : " + user.getApiKey());
+		logger.trace("Access Token crée pour " + user.getLogin() + " : " + user.getAccessToken());
 
-		return ResponseEntity.ok().body(user.getApiKey());
+		return ResponseEntity.ok().body(user.getAccessToken());
 	}
 
 	@GetMapping("ping")
@@ -81,5 +84,13 @@ public class AnonymousController {
 	}
 
 	public void motDePassePerdu(String email) {
+	}
+
+	protected int getTokenExpiration() {
+		return tokenExpiration;
+	}
+
+	protected void setTokenExpiration(int tokenExpiration) {
+		this.tokenExpiration = tokenExpiration;
 	}
 }

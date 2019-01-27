@@ -1,7 +1,7 @@
 package net.secudev.auth.model.utilisateur;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -49,15 +49,16 @@ public class Utilisateur extends AbstractEntity {
 	@Getter
 	@Setter
 	@Column(unique = true)
-	private String apiKey;
+	private String accessToken;
 
 	@Getter
-	@Setter
-	LocalDateTime dateExpirationApiKey;
+	private LocalDateTime dateExpirationAccessToken;
 
 	@Getter
-	@Setter
 	private String codeValidationInscription;
+	
+	@Getter
+	private LocalDateTime dateExpirationCodeInscription;
 
 	@Getter
 	@Setter
@@ -99,25 +100,26 @@ public class Utilisateur extends AbstractEntity {
 			this.roles.remove(role);
 	}
 
-	public Set<Role> getRoles() {
-		return Collections.unmodifiableSet(roles);
-		// return new ArrayList<Role>(roles);
+	public List<Role> getRoles() {	
+		return new ArrayList<Role>(roles);
 	}
 
-	public String genererCodeValidation() {
+	public String genererCodeValidation(int joursExpiration) {
 		this.codeValidationInscription = UUID.randomUUID().toString();
+		this.dateExpirationCodeInscription = LocalDateTime.now().plusDays(joursExpiration);
 		return this.codeValidationInscription;
 	}
 
-	public String createApiKey() {
-		this.apiKey = UUID.randomUUID().toString();
-		this.dateExpirationApiKey = LocalDateTime.now().plusDays(30);
-		return this.apiKey;
+	public String createAccessToken(int joursExpiration) {
+		this.accessToken = UUID.randomUUID().toString();
+		this.dateExpirationAccessToken = LocalDateTime.now().plusDays(joursExpiration);
+		return this.accessToken;
 	}
 
 	public void revoquerAcces() {
 		this.codeValidationInscription = "";
-		this.apiKey = "";
-		this.dateExpirationApiKey = LocalDateTime.now().minusMinutes(5);
+		this.dateExpirationCodeInscription=LocalDateTime.now().minusMinutes(5);
+		this.accessToken = "";
+		this.dateExpirationAccessToken = LocalDateTime.now().minusMinutes(5);
 	}
 }

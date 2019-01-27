@@ -11,7 +11,7 @@ Boolean existsByLogin(String login);
 	
 	Utilisateur findByLogin(String login);
 
-	Utilisateur findByApiKey(String apiKey);
+	Utilisateur findByAccessToken(String accessToken);
 
 	Utilisateur findByEmail(String email);
 
@@ -25,6 +25,6 @@ Boolean existsByLogin(String login);
 
 	List<Utilisateur> findByDateDernierAccesBetweenOrderByLoginAsc(LocalDateTime debut, LocalDateTime fin);
 
-	List<Utilisateur> findByDateExpirationApiKeyBetweenOrderByLoginAsc(LocalDateTime debut, LocalDateTime fin);
+	List<Utilisateur> findByDateExpirationAccessTokenBetweenOrderByLoginAsc(LocalDateTime debut, LocalDateTime fin);
 
 }

@@ -18,7 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {	
 
 	@Autowired
-	ApiKeyFilter apikeyFilter;	
+	AccessTokenFilter accessTokenFilter;	
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -65,9 +65,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 				// Permet de capturer le header Authorization
 				.httpBasic().and()
+				
+				//Permet d'intercepter les acces refusés et passer une classe perso AccessDenyHandler ou je log les evenements
+				.exceptionHandling().accessDeniedHandler(new AccessDenyHandler()).and()
+				
 
 				// filtre qui va disséquer la requete http pour authentifier les requetes
-				.addFilterAfter(apikeyFilter, UsernamePasswordAuthenticationFilter.class)
+				.addFilterAfter(accessTokenFilter, UsernamePasswordAuthenticationFilter.class)
 				
 				// .addFilterAfter(apiKeyFilter),
 				// UsernamePasswordAuthenticationFilter.class)
