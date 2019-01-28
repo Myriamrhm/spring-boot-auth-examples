@@ -31,6 +31,7 @@
 
 ### Basic
 
+![Flow](basic_auth_flow.JPG "Flow")
 ### Access Token
 
 ### JWT
