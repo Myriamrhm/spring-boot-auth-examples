@@ -6,7 +6,7 @@
 2. [Comparaison](#comparaison)
 3. [Détails et requêtes](#détails)
     1. [Basic](#basic)
-    2. [ApiKey](#apikey)
+    2. [Access Token](#accessToken)
     3. [JWT](#jwt)
     4. [Keycloak](#keycloak)
 4. [Documentation](#documentation)
@@ -16,6 +16,8 @@
 
 ### Installation
 
+ Une base de données MYSQL nommée auth en local avec un user auth mot de passe auth full access sur cette base
+ 
 ### Contexte
 
 ## Comparaison
@@ -23,7 +25,7 @@
 |Type d'authentification|Composants Spring à l'oeuvre|Avantages|Inconvénients|Remarques|
 |--|--|--|--|--|
 |Basic|--|--|--|--|
-|ApiKey|--|--|--|--|
+|Access Token|--|--|--|--|
 |JWT|--|--|--|--|
 |Keycloak|--|--|--|--|
 
@@ -31,8 +33,9 @@
 
 ### Basic
 
-### ApiKey
-
+![Flow](basic_auth_flow.JPG "Flow")
+### Access Token
+![Flow](access_token_auth_flow.JPG "Flow")
 ### JWT
 
 ### Keycloak
