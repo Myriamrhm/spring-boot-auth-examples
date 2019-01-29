@@ -33,7 +33,7 @@
 
 ![Flow](basic_auth_flow.JPG "Flow")
 ### Access Token
-
+![Flow](access_token_auth_flow.JPG "Flow")
 ### JWT
 
 ### Keycloak
