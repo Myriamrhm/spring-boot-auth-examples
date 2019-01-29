@@ -16,6 +16,8 @@
 
 ### Installation
 
+ Une base de données MYSQL nommée auth en local avec un user auth mot de passe auth full access sur cette base
+ 
 ### Contexte
 
 ## Comparaison
