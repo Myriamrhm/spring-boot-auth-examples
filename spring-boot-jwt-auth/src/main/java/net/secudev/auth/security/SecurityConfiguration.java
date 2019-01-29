@@ -50,7 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		 */
 
 		//On desactive CSRF ansi que le formulaire de login auto généré et on active la protection CORS
-		http.csrf().disable().cors().and().formLogin().disable()
+		http.csrf().disable().cors().and().formLogin().disable().logout().disable()
 
 				// Permet d'accèder a ces racines d'URL de facon anonyme (le controller de
 				// login, un de tests et la doc d'api

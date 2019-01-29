@@ -36,6 +36,7 @@ public class AccessTokenFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 
+		
 		// 1 extraire le token des headers et valider si il est conforme
 		String header = request.getHeader("Authorization");
 
@@ -90,6 +91,8 @@ public class AccessTokenFilter extends OncePerRequestFilter {
 			user.setDerniereIpConnue(request.getRemoteAddr());
 
 			utilisateurs.save(user);
+			
+			logger.trace("Contexte de sécurité crée pour "+user.getLogin()+" depuis "+request.getRemoteAddr());
 
 			// passer la main à la chaine de filtres suivants
 

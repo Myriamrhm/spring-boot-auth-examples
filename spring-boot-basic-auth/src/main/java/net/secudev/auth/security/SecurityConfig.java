@@ -33,12 +33,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().anyRequest().authenticated().and()
-		
-		.formLogin().disable()	
-		
-		.httpBasic().and()
-		
+		http.authorizeRequests().anyRequest().authenticated().and()		
+		.formLogin().disable()			
+		.httpBasic().and()		
+		.logout().disable()
 		.cors().disable().csrf().disable()
 		
 		//Alternative ci dessous à @PreAuthorize("hasRole('ROLE_admin')") dans le controller admin		

@@ -5,12 +5,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.header.HeaderWriterFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -23,6 +25,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+	
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		//permet de completement bypasser la chaine de filtre pour ce masque d'URL
+	    web.ignoring().antMatchers("/ano/**");
+	  
 	}
 
 	@Override
@@ -50,32 +59,40 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		 */
 
 		//On desactive CSRF ansi que le formulaire de login auto généré et on active la protection CORS
-		http.csrf().disable().cors().and().formLogin().disable()
+		http.csrf().disable()
+		.cors().disable()
+		.httpBasic().disable()
+		.formLogin().disable()
+		.logout().disable()
+		.rememberMe().disable()
+	
 
 				// Permet d'accèder a ces racines d'URL de facon anonyme (le controller de
 				// login, un de tests et la doc d'api
 				.authorizeRequests()
-				.antMatchers("/ano/**").permitAll()
-				.antMatchers("/test/**").permitAll()
-				.antMatchers("/", "/csrf", "/v2/api-docs", "/swagger-resources/configuration/ui", "/swagger-resources",
-						"/swagger-resources/configuration/security", "/swagger-ui.html", "/webjars/**")	.permitAll()
+				
+				//A placer dans web ignoring
+				  .antMatchers("/", "/csrf", "/v2/api-docs", "/swagger-resources/configuration/ui", "/swagger-resources",
+							"/swagger-resources/configuration/security", "/swagger-ui.html", "/webjars/**").anonymous()
+				
 
 				// Maintenant toutes les autres sont soumises à authentification
 				.anyRequest().authenticated().and()
+				
+				//antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+		        //.antMatchers("/**").access("hasRole('ROLE_USER')")
 
 				// Permet de capturer le header Authorization
-				.httpBasic().and()
+				.httpBasic().disable()
 				
 				//Permet d'intercepter les acces refusés et passer une classe perso AccessDenyHandler ou je log les evenements
 				.exceptionHandling().accessDeniedHandler(new AccessDenyHandler()).and()
 				
 
 				// filtre qui va disséquer la requete http pour authentifier les requetes
+				
 				.addFilterAfter(accessTokenFilter, UsernamePasswordAuthenticationFilter.class)
-				
-				// .addFilterAfter(apiKeyFilter),
-				// UsernamePasswordAuthenticationFilter.class)
-				
+								
 
 				// desactive les sessions car la communication est sans etat a conserver coté
 				// serveur
